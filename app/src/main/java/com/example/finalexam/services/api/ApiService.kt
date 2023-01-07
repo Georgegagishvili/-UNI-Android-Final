@@ -1,4 +1,4 @@
-package com.example.finalexam.api
+package com.example.finalexam.services.api
 
 import com.example.finalexam.models.SampleData
 import com.example.finalexam.models.SampleModel
