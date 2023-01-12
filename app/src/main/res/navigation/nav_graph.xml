@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/menuFragment">
+
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.finalexam.ui.menu.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout = "@layout/fragment_menu">
+        <action
+            android:id="@+id/action_menuFragment_to_leaderboardFragment"
+            app:destination="@id/leaderboardFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/leaderboardFragment"
+        android:name="com.example.finalexam.ui.leaderboard.LeaderboardFragment"
+        android:label="fragment_leaderboard"
+        tools:layout = "@layout/fragment_leaderboard"/>
+
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.example.finalexam.ui.game.GameFragment"
+        android:label="fragment_game"
+        tools:layout = "@layout/fragment_game">
+        <action
+            android:id="@+id/action_gameFragment_to_gameEndFragment"
+            app:destination="@id/gameEndFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/gameEndFragment"
+        android:name="com.example.finalexam.ui.game_end.GameEndFragment"
+        android:label="fragment_game_end"
+        tools:layout="@layout/fragment_game_end">
+        <action
+            android:id="@+id/action_gameEndFragment_to_menuFragment2"
+            app:destination="@id/menuFragment" />
+    </fragment>
+
+</navigation>

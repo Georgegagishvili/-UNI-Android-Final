@@ -2,10 +2,12 @@ package com.example.finalexam
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.fragment.NavHostFragment
 import com.example.finalexam.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+    private lateinit var navHostFragment: NavHostFragment
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,7 +17,9 @@ class MainActivity : AppCompatActivity() {
         init()
     }
 
+
     private fun init() {
-        ///ToDo
+        navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
     }
 }
