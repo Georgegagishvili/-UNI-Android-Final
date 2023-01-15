@@ -38,10 +38,6 @@
         android:id="@+id/gameEndFragment"
         android:name="com.example.finalexam.ui.game_end.GameEndFragment"
         android:label="fragment_game_end"
-        tools:layout="@layout/fragment_game_end">
-        <action
-            android:id="@+id/action_gameEndFragment_to_menuFragment2"
-            app:destination="@id/menuFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_game_end"/>
 
 </navigation>

@@ -13,6 +13,38 @@
         android:layout_height="match_parent"
         android:background="#F3D24F" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/backbutton_clicked"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/text_levels"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/bebasregular"
+            android:gravity="end"
+            android:text="Question 1"
+            android:textAlignment="inherit"
+            android:textAllCaps="true"
+            android:textColor="#ECECEC"
+            android:textSize="45sp" />
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/container1"
@@ -21,45 +53,24 @@
         android:gravity="center"
         android:orientation="vertical">
 
+
         <LinearLayout
             android:id="@+id/container2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="10dp" />
 
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/question_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/btn_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/backbutton_clicked"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/text_levels"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/bebasregular"
-                android:gravity="end"
-                android:text="Quiz 1"
-                android:textAlignment="inherit"
-                android:textAllCaps="true"
-                android:textColor="#ECECEC"
-                android:textSize="60sp" />
-
-        </LinearLayout>
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/bebasregular"
+            android:text="@string/sample_question"
+            android:textColor="#ECECEC"
+            android:textSize="30sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
+                <TextView
                     android:id="@+id/answer_topleft"
                     android:layout_width="250dp"
                     android:layout_height="190dp"
@@ -79,18 +90,23 @@
                     android:layout_weight="1"
                     android:background="@drawable/ic_launcher_background"
                     android:backgroundTint="#ececec"
-                    android:scaleType="centerCrop" />
+                    android:gravity="center"
+                    android:scaleType="centerCrop"
+                    android:text="@string/question"
+                    android:textAlignment="center" />
 
-                <ImageView
+                <TextView
                     android:id="@+id/answer_topright"
                     android:layout_width="250dp"
                     android:layout_height="190dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/ic_launcher_background"
                     android:backgroundTint="#ececec"
-                    android:scaleType="centerCrop" />
+                    android:gravity="center"
+                    android:scaleType="centerCrop"
+                    android:text="@string/question"
+                    android:textAlignment="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -98,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp">
 
-                <ImageView
+                <TextView
                     android:id="@+id/answer_bottomleft"
                     android:layout_width="250dp"
                     android:layout_height="190dp"
@@ -106,18 +122,23 @@
                     android:layout_weight="1"
                     android:background="@drawable/ic_launcher_background"
                     android:backgroundTint="#ececec"
-                    android:scaleType="centerCrop" />
+                    android:gravity="center"
+                    android:scaleType="centerCrop"
+                    android:text="@string/question"
+                    android:textAlignment="center" />
 
-                <ImageView
+                <TextView
                     android:id="@+id/answer_bottomright"
                     android:layout_width="250dp"
                     android:layout_height="190dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/ic_launcher_background"
                     android:backgroundTint="#ececec"
-                    android:scaleType="centerCrop" />
+                    android:gravity="center"
+                    android:scaleType="centerCrop"
+                    android:text="@string/question"
+                    android:textAlignment="center" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
