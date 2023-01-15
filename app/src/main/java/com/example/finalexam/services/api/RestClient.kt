@@ -8,12 +8,12 @@ object RestClient {
 
     private lateinit var okHttpClient: OkHttpClient
     private lateinit var retrofit: Retrofit
-    val reqResService: ApiService get() = retrofit.create(ApiService::class.java)
+    val quizService: QuizService get() = retrofit.create(QuizService::class.java)
 
     fun getRetrofit(): Retrofit {
         okHttpClient = OkHttpClient.Builder().build()
         retrofit = Retrofit.Builder()
-            .baseUrl("https://reqres.in/api/")
+            .baseUrl("https://the-trivia-api.com/api/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
