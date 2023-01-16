@@ -110,6 +110,11 @@ class GameFragment : Fragment() {
             val action = GameFragmentDirections.actionGameFragmentToGameEndFragment()
             currentView.findNavController().navigate(action)
         } else {
+            // Increase level indicator
+            val level = currentQuestionIdx + 1
+            binding.textLevels.text = "Question $level"
+
+            // Display next question
             setupQuestion();
         }
     }
