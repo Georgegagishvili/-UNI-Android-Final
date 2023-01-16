@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import com.example.finalexam.databinding.FragmentGameBinding
 import com.example.finalexam.models.Question
 import com.example.finalexam.services.api.RestClient
+import com.example.finalexam.ui.menu.MenuFragmentDirections
 import retrofit2.Call
 import retrofit2.Response
 
@@ -17,6 +19,7 @@ class GameFragment : Fragment() {
     private lateinit var questions: ArrayList<Question>
     private lateinit var binding: FragmentGameBinding
     private var currentQuestionIdx: Int = 0
+    private lateinit var currentView: View
 
 
     companion object {
@@ -41,6 +44,7 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
+        currentView = view
     }
 
     private fun init() {
@@ -100,6 +104,11 @@ class GameFragment : Fragment() {
             ///ToDo..
         }
         currentQuestionIdx += 1;
-        setupQuestion();
+        if(currentQuestionIdx == 10) {
+            val action = GameFragmentDirections.actionGameFragmentToGameEndFragment()
+            currentView.findNavController().navigate(action)
+        } else {
+            setupQuestion();
+        }
     }
 }
