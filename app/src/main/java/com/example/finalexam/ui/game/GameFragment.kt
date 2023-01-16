@@ -48,6 +48,8 @@ class GameFragment : Fragment() {
     }
 
     private fun init() {
+        registerBackButtonListener()
+
         RestClient.quizService.getQuestions().enqueue(
             object : retrofit2.Callback<ArrayList<Question>> {
                 override fun onResponse(
@@ -109,6 +111,14 @@ class GameFragment : Fragment() {
             currentView.findNavController().navigate(action)
         } else {
             setupQuestion();
+        }
+    }
+
+    // On back button click navigates to menu
+    private fun registerBackButtonListener() {
+        binding.btnBack.setOnClickListener {
+            val action = GameFragmentDirections.actionGameFragmentToMenuFragment()
+            currentView.findNavController().navigate(action)
         }
     }
 }
