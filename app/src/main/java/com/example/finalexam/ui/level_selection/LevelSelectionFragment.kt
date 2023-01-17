@@ -32,6 +32,10 @@ class LevelSelectionFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         currentView = view
+
+        binding.menuButton.setOnClickListener {
+            currentView.findNavController().popBackStack()
+        }
     }
 
     private fun onCategoryClick(category: String) {

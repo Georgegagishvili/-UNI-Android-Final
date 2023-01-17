@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/menuFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:id="@+id/menuFragment"
-    android:background="@drawable/drawable_backgroundmain">
+    tools:context=".MainActivity">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/drawable_backgroundmain" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical">
 
-        <ImageButton
+        <TextView
             android:id="@+id/start_button"
-            android:layout_width="285dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="225dp"
-            android:background="@drawable/button_clicked_mainpage" />
+            style="@style/mainButton"
+            android:layout_marginTop="145dp"
+            android:text="Start Game" />
 
-        <ImageButton
-            android:layout_width="285dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="2dp"
-            android:background="@drawable/button_clicked_report" />
-
-        <ImageButton
-            android:layout_width="285dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="2dp"
-            android:background="@drawable/button_clicked_facebook" />
+        <TextView
+            android:id="@+id/leaderboard_button"
+            style="@style/mainButton"
+            android:layout_marginTop="5dp"
+            android:text="Leaderboard" />
     </LinearLayout>
 
 

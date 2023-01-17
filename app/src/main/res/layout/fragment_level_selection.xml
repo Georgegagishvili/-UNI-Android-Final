@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/levelSelectionFragment"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/levels_background"
-    android:orientation="vertical"
     tools:context=".ui.level_selection.LevelSelectionFragment">
 
+
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -18,61 +18,66 @@
             android:orientation="vertical">
 
             <TextView
+                style="@style/mainButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginHorizontal="35dp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="15dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginBottom="20dp"
-                android:background="@color/black"
-                android:fontFamily="@font/baamini"
-                android:gravity="center_horizontal"
-                android:padding="20dp"
-                android:text="@string/category_selection"
-                android:textColor="@color/white"
-                android:textFontWeight="700"
-                android:textSize="30sp"
-                tools:targetApi="p" />
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Select Category" />
 
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
                 android:columnCount="2"
                 android:paddingHorizontal="10dp"
                 android:rowCount="3"
                 android:useDefaultMargins="true">
 
                 <TextView
-                    style="@style/categoryButton"
                     android:id="@+id/science"
+                    style="@style/categoryButton"
                     android:text="Science" />
 
                 <TextView
-                    style="@style/categoryButton"
                     android:id="@+id/geography"
+                    style="@style/categoryButton"
                     android:text="Geography" />
 
                 <TextView
-                    style="@style/categoryButton"
                     android:id="@+id/history"
+                    style="@style/categoryButton"
                     android:text="History" />
 
                 <TextView
-                    style="@style/categoryButton"
                     android:id="@+id/music"
+                    style="@style/categoryButton"
                     android:text="Music" />
 
                 <TextView
-                    style="@style/categoryButton"
                     android:id="@+id/arts"
+                    style="@style/categoryButton"
                     android:text="Arts" />
 
                 <TextView
-                    style="@style/categoryButton"
                     android:id="@+id/movies"
+                    style="@style/categoryButton"
                     android:text="Movies" />
             </GridLayout>
+
+
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/menu_button"
+        style="@style/mainButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:text="MENU" />
+
+</RelativeLayout>

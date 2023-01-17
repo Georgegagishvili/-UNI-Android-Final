@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.navigation.findNavController
 import com.example.finalexam.R
 
@@ -33,10 +34,16 @@ class MenuFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val startButton = view.findViewById<ImageButton>(R.id.start_button);
+        val startButton = view.findViewById<TextView>(R.id.start_button);
+        val leaderboardButton = view.findViewById<TextView>(R.id.leaderboard_button)
 
         startButton.setOnClickListener{
            val action = MenuFragmentDirections.actionMenuFragmentToLevelSelectionFragment()
+            view.findNavController().navigate(action)
+        }
+
+        leaderboardButton.setOnClickListener{
+            val action = MenuFragmentDirections.actionMenuFragmentToLeaderboardFragment()
             view.findNavController().navigate(action)
         }
     }
