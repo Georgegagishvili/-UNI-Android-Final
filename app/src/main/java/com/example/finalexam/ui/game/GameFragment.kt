@@ -1,25 +1,43 @@
 package com.example.finalexam.ui.game
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.navigation.findNavController
+import com.example.finalexam.R
 import com.example.finalexam.databinding.FragmentGameBinding
 import com.example.finalexam.models.Question
 import com.example.finalexam.services.api.RestClient
 import retrofit2.Call
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
 
-class GameFragment : Fragment() {
+class GameFragment : Fragment(), View.OnClickListener {
     private lateinit var currentView: View
     private lateinit var questions: ArrayList<Question>
     private lateinit var binding: FragmentGameBinding
+    private lateinit var btn1: TextView
+    private lateinit var btn2: TextView
+    private lateinit var btn3: TextView
+    private lateinit var btn4: TextView
+    private lateinit var btnList: List<TextView>
     private var currentQuestionIdx = 0
     private var correctAnswerAmount = 0
+    private var amountOfQuestions = 10
+    private var isWaiting = false
+    private val redColor = Color.parseColor("#d91e1e")
+    private val greenColor = Color.parseColor("#4ae54a")
+    private val whiteColor = Color.parseColor("#ececec")
+    private val blackColor = Color.parseColor("#000000")
 
     companion object {
         fun newInstance() = GameFragment()
@@ -32,6 +50,7 @@ class GameFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentGameBinding.inflate(layoutInflater, container, false)
+        setAnswerListeners()
         return binding.root
     }
 
@@ -48,15 +67,16 @@ class GameFragment : Fragment() {
 
     private fun init() {
         registerBackButtonListener()
+        val category = arguments?.getString("category").toString()
 
-        RestClient.quizService.getQuestions().enqueue(
+        RestClient.quizService.getQuestions(category).enqueue(
             object : retrofit2.Callback<ArrayList<Question>> {
                 override fun onResponse(
                     call: Call<ArrayList<Question>>,
                     response: Response<ArrayList<Question>>,
                 ) {
                     val responseQuestions = response.body()
-                    questions = responseQuestions ?: ArrayList<Question>()
+                    questions = responseQuestions ?: ArrayList()
                     if (questions.isNotEmpty()) {
                         setupQuestion()
                     }
@@ -69,60 +89,93 @@ class GameFragment : Fragment() {
         )
     }
 
-    private fun setupQuestion() {
-        val currentQuestion: Question = questions[currentQuestionIdx]
-        val allAnswers: ArrayList<String> = arrayListOf()
-        allAnswers.addAll(currentQuestion.incorrectAnswers)
-        allAnswers.add(currentQuestion.correctAnswer)
-        allAnswers.shuffle()
-
-        binding.questionText.text = currentQuestion.question
-
-        binding.answerTopleft.text = allAnswers[0]
-        binding.answerTopright.text = allAnswers[1]
-        binding.answerBottomleft.text = allAnswers[2]
-        binding.answerBottomright.text = allAnswers[3]
-
-
-        binding.answerTopleft.setOnClickListener {
-            onAnswer(allAnswers[0])
+    private fun setAnswerListeners() {
+        btn1 = binding.root.findViewById(R.id.answer_topleft)
+        btn2 = binding.root.findViewById(R.id.answer_topright)
+        btn3 = binding.root.findViewById(R.id.answer_bottomleft)
+        btn4 = binding.root.findViewById(R.id.answer_bottomright)
+        btnList = listOf(btn1, btn2, btn3, btn4)
+        btnList.forEach {
+            it.setOnClickListener(this)
         }
-        binding.answerTopright.setOnClickListener {
-            onAnswer(allAnswers[1])
-        }
-        binding.answerBottomleft.setOnClickListener {
-            onAnswer(allAnswers[2])
-        }
-        binding.answerBottomright.setOnClickListener {
-            onAnswer(allAnswers[3])
-        }
-
     }
 
-    private fun onAnswer(text: String) {
-        val currentQuestion: Question = questions[currentQuestionIdx]
-        if (text == currentQuestion.correctAnswer) {
-            correctAnswerAmount += 1
-        }
-        currentQuestionIdx += 1;
-        if(currentQuestionIdx == 10) {
-            val action = GameFragmentDirections.actionGameFragmentToGameEndFragment(correctAnswerAmount)
-            currentView.findNavController().navigate(action)
-        } else {
-            // Increase level indicator
-            val level = currentQuestionIdx + 1
-            binding.textLevels.text = "Question $level"
+    private fun setupQuestion() {
+        if (currentQuestionIdx < amountOfQuestions) {
+            val currentQuestion: Question = questions[currentQuestionIdx]
+            val allAnswers: ArrayList<String> = arrayListOf()
+            allAnswers.addAll(currentQuestion.incorrectAnswers)
+            allAnswers.add(currentQuestion.correctAnswer)
+            allAnswers.shuffle()
 
+            binding.questionText.text = currentQuestion.question
+
+            for (i in 0..3) {
+                btnList[i].text = allAnswers[i]
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun onAnswer(view: View) {
+        if (isWaiting || !this::questions.isInitialized) return
+
+        if (view is TextView) {
+            isWaiting = true
+            if (currentQuestionIdx == amountOfQuestions) {
+                val action =
+                    GameFragmentDirections.actionGameFragmentToGameEndFragment(correctAnswerAmount)
+                currentView.findNavController().navigate(action)
+                return
+            }
+
+            val text = view.text.toString()
+            val currentQuestion: Question = questions[currentQuestionIdx]
+            view.setTextColor(whiteColor)
+            var correctAnswerBtnIdx = 0
+            if (text == currentQuestion.correctAnswer) {
+                correctAnswerAmount += 1
+                view.setBackgroundColor(greenColor)
+            } else {
+                view.setBackgroundColor(redColor)
+                btnList.forEach {
+                    if (it.text.toString() == questions[currentQuestionIdx].correctAnswer) {
+                        it.setBackgroundColor(greenColor)
+                        correctAnswerBtnIdx = btnList.indexOf(it)
+                    }
+                }
+
+            }
             // Display next question
-            setupQuestion();
+            Handler().postDelayed(
+                object : TimerTask() {
+                    override fun run() {
+                        currentQuestionIdx += 1
+                        binding.textLevels.text =
+                            "Question ${currentQuestionIdx + 1}/$amountOfQuestions"
+                        isWaiting = false
+                        view.setBackgroundColor(whiteColor)
+                        view.setTextColor(blackColor)
+                        btnList[correctAnswerBtnIdx].setBackgroundColor(whiteColor)
+                        setupQuestion()
+                    }
+                },
+                1000,
+            )
+
         }
     }
 
     // On back button click navigates to menu
     private fun registerBackButtonListener() {
         binding.btnBack.setOnClickListener {
-            val action = GameFragmentDirections.actionGameFragmentToMenuFragment()
-            currentView.findNavController().navigate(action)
+            currentView.findNavController().popBackStack()
+        }
+    }
+
+    override fun onClick(v: View?) {
+        if (v is TextView) {
+            onAnswer(v)
         }
     }
 }
