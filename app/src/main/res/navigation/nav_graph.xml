@@ -32,12 +32,20 @@
         <action
             android:id="@+id/action_gameFragment_to_gameEndFragment"
             app:destination="@id/gameEndFragment" />
+        <action
+            android:id="@+id/action_gameFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/gameEndFragment"
         android:name="com.example.finalexam.ui.game_end.GameEndFragment"
         android:label="fragment_game_end"
-        tools:layout="@layout/fragment_game_end"/>
+        tools:layout="@layout/fragment_game_end">
+        <argument
+            android:name="correctAnswerAmount"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 
 </navigation>

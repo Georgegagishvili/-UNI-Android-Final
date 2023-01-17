@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import com.example.finalexam.databinding.FragmentGameBinding
 import com.example.finalexam.models.Question
 import com.example.finalexam.services.api.RestClient
@@ -14,10 +15,11 @@ import retrofit2.Call
 import retrofit2.Response
 
 class GameFragment : Fragment() {
+    private lateinit var currentView: View
     private lateinit var questions: ArrayList<Question>
     private lateinit var binding: FragmentGameBinding
-    private var currentQuestionIdx: Int = 0
-
+    private var currentQuestionIdx = 0
+    private var correctAnswerAmount = 0
 
     companion object {
         fun newInstance() = GameFragment()
@@ -41,9 +43,12 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
+        currentView = view
     }
 
     private fun init() {
+        registerBackButtonListener()
+
         RestClient.quizService.getQuestions().enqueue(
             object : retrofit2.Callback<ArrayList<Question>> {
                 override fun onResponse(
@@ -97,9 +102,27 @@ class GameFragment : Fragment() {
     private fun onAnswer(text: String) {
         val currentQuestion: Question = questions[currentQuestionIdx]
         if (text == currentQuestion.correctAnswer) {
-            ///ToDo..
+            correctAnswerAmount += 1
         }
         currentQuestionIdx += 1;
-        setupQuestion();
+        if(currentQuestionIdx == 10) {
+            val action = GameFragmentDirections.actionGameFragmentToGameEndFragment(correctAnswerAmount)
+            currentView.findNavController().navigate(action)
+        } else {
+            // Increase level indicator
+            val level = currentQuestionIdx + 1
+            binding.textLevels.text = "Question $level"
+
+            // Display next question
+            setupQuestion();
+        }
+    }
+
+    // On back button click navigates to menu
+    private fun registerBackButtonListener() {
+        binding.btnBack.setOnClickListener {
+            val action = GameFragmentDirections.actionGameFragmentToMenuFragment()
+            currentView.findNavController().navigate(action)
+        }
     }
 }
