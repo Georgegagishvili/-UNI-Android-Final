@@ -11,16 +11,15 @@ import androidx.navigation.findNavController
 import com.example.finalexam.databinding.FragmentGameBinding
 import com.example.finalexam.models.Question
 import com.example.finalexam.services.api.RestClient
-import com.example.finalexam.ui.menu.MenuFragmentDirections
 import retrofit2.Call
 import retrofit2.Response
 
 class GameFragment : Fragment() {
+    private lateinit var currentView: View
     private lateinit var questions: ArrayList<Question>
     private lateinit var binding: FragmentGameBinding
-    private var currentQuestionIdx: Int = 0
-    private lateinit var currentView: View
-
+    private var currentQuestionIdx = 0
+    private var correctAnswerAmount = 0
 
     companion object {
         fun newInstance() = GameFragment()
@@ -103,11 +102,11 @@ class GameFragment : Fragment() {
     private fun onAnswer(text: String) {
         val currentQuestion: Question = questions[currentQuestionIdx]
         if (text == currentQuestion.correctAnswer) {
-            ///ToDo..
+            correctAnswerAmount += 1
         }
         currentQuestionIdx += 1;
         if(currentQuestionIdx == 10) {
-            val action = GameFragmentDirections.actionGameFragmentToGameEndFragment()
+            val action = GameFragmentDirections.actionGameFragmentToGameEndFragment(correctAnswerAmount)
             currentView.findNavController().navigate(action)
         } else {
             // Increase level indicator

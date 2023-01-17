@@ -41,6 +41,11 @@
         android:id="@+id/gameEndFragment"
         android:name="com.example.finalexam.ui.game_end.GameEndFragment"
         android:label="fragment_game_end"
-        tools:layout="@layout/fragment_game_end"/>
+        tools:layout="@layout/fragment_game_end">
+        <argument
+            android:name="correctAnswerAmount"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 
 </navigation>
