@@ -2,4 +2,5 @@
     <string name="app_name">Final Exam</string>
     <string name="question">Question</string>
     <string name="sample_question">Which British rock band released the studio album \'Jazz\'?</string>
+    <string name="category_selection">Category Selection</string>
 </resources>

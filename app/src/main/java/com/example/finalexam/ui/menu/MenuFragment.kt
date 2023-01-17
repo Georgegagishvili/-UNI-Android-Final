@@ -36,7 +36,7 @@ class MenuFragment : Fragment() {
         val startButton = view.findViewById<ImageButton>(R.id.start_button);
 
         startButton.setOnClickListener{
-           val action = MenuFragmentDirections.actionMenuFragmentToGameFragment()
+           val action = MenuFragmentDirections.actionMenuFragmentToLevelSelectionFragment()
             view.findNavController().navigate(action)
         }
     }

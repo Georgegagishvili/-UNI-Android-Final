@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/levelSelectionFragment"
+    android:layout_height="match_parent"
+    android:background="@drawable/levels_background"
+    android:orientation="vertical"
+    tools:context=".ui.level_selection.LevelSelectionFragment">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="35dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/black"
+                android:fontFamily="@font/baamini"
+                android:gravity="center_horizontal"
+                android:padding="20dp"
+                android:text="@string/category_selection"
+                android:textColor="@color/white"
+                android:textFontWeight="700"
+                android:textSize="30sp"
+                tools:targetApi="p" />
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:paddingHorizontal="10dp"
+                android:rowCount="3"
+                android:useDefaultMargins="true">
+
+                <TextView
+                    style="@style/categoryButton"
+                    android:id="@+id/science"
+                    android:text="Science" />
+
+                <TextView
+                    style="@style/categoryButton"
+                    android:id="@+id/geography"
+                    android:text="Geography" />
+
+                <TextView
+                    style="@style/categoryButton"
+                    android:id="@+id/history"
+                    android:text="History" />
+
+                <TextView
+                    style="@style/categoryButton"
+                    android:id="@+id/music"
+                    android:text="Music" />
+
+                <TextView
+                    style="@style/categoryButton"
+                    android:id="@+id/arts"
+                    android:text="Arts" />
+
+                <TextView
+                    style="@style/categoryButton"
+                    android:id="@+id/movies"
+                    android:text="Movies" />
+            </GridLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

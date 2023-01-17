@@ -14,8 +14,8 @@
             android:id="@+id/action_menuFragment_to_leaderboardFragment"
             app:destination="@id/leaderboardFragment" />
         <action
-            android:id="@+id/action_menuFragment_to_gameFragment"
-            app:destination="@id/gameFragment" />
+            android:id="@+id/action_menuFragment_to_levelSelectionFragment"
+            app:destination="@id/levelSelectionFragment" />
     </fragment>
 
     <fragment
@@ -29,12 +29,14 @@
         android:name="com.example.finalexam.ui.game.GameFragment"
         android:label="fragment_game"
         tools:layout = "@layout/fragment_game">
+        <argument
+            android:name="category"
+            app:argType="string"
+            app:nullable="false"
+            android:defaultValue="None" />
         <action
             android:id="@+id/action_gameFragment_to_gameEndFragment"
             app:destination="@id/gameEndFragment" />
-        <action
-            android:id="@+id/action_gameFragment_to_menuFragment"
-            app:destination="@id/menuFragment" />
     </fragment>
 
     <fragment
@@ -46,6 +48,15 @@
             android:name="correctAnswerAmount"
             app:argType="integer"
             android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/levelSelectionFragment"
+        android:name="com.example.finalexam.ui.level_selection.LevelSelectionFragment"
+        android:label="fragment_level_selection"
+        tools:layout="@layout/fragment_level_selection" >
+        <action
+            android:id="@+id/action_levelSelectionFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
     </fragment>
 
 </navigation>
