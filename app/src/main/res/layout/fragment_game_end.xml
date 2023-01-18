@@ -6,10 +6,54 @@
     android:id="@+id/gameEndFragment"
     tools:context=".ui.game_end.GameEndFragment">
 
-    <TextView
-        android:id="@+id/correct_answers"
+    <ImageView
+        android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:background="#F3D24F" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/resultText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="32sp"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:fontFamily="@font/peacesans"
+            android:layout_marginBottom="5dp"
+            android:text="Better luck next time" />
+
+        <TextView
+            android:id="@+id/correct_answers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="50sp"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:fontFamily="@font/peacesans"
+            android:text="0/10" />
+
+        <TextView
+            android:id="@+id/restartButton"
+            style="@style/mainButton"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:text="Restart" />
+
+        <TextView
+            android:id="@+id/menuButton"
+            style="@style/mainButton"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:text="Back To Menu" />
+
+
+    </LinearLayout>
 
 </FrameLayout>

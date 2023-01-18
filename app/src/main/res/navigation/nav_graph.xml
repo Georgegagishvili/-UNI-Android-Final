@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_gameFragment_to_gameEndFragment"
             app:destination="@id/gameEndFragment" />
+        <action
+            android:id="@+id/action_gameFragment_to_levelSelectionFragment"
+            app:destination="@id/levelSelectionFragment" />
     </fragment>
 
     <fragment
@@ -48,6 +51,14 @@
             android:name="correctAnswerAmount"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_gameEndFragment_to_menuFragment2"
+            app:destination="@id/menuFragment" />
+        <argument android:name="category"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_gameEndFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
     </fragment>
     <fragment
         android:id="@+id/levelSelectionFragment"

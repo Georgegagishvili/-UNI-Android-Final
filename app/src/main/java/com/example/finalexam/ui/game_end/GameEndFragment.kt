@@ -1,15 +1,18 @@
 package com.example.finalexam.ui.game_end
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.finalexam.R
 import com.example.finalexam.databinding.FragmentGameBinding
 import com.example.finalexam.databinding.FragmentGameEndBinding
+import com.example.finalexam.ui.game.GameFragmentDirections
 
 class GameEndFragment : Fragment() {
     private lateinit var binding: FragmentGameEndBinding
@@ -34,10 +37,29 @@ class GameEndFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(GameEndViewModel::class.java)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val correctAnswerAmount = args.correctAnswerAmount
-        binding.correctAnswers.text = correctAnswerAmount.toString()
+        val category = args.category
+        binding.correctAnswers.text = "$correctAnswerAmount/10"
+
+        if(correctAnswerAmount > 4) {
+            binding.resultText.text = "Good Job"
+        }
+
+        binding.menuButton.setOnClickListener {
+            val action =
+                GameEndFragmentDirections.actionGameEndFragmentToMenuFragment2()
+            view.findNavController().navigate(action)
+        }
+
+        binding.restartButton.setOnClickListener {
+            val action =
+                GameEndFragmentDirections.actionGameEndFragmentToGameFragment(category)
+            view.findNavController().navigate(action)
+        }
+
     }
 
 }

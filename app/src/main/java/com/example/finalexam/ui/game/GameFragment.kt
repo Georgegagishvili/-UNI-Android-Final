@@ -16,6 +16,7 @@ import com.example.finalexam.R
 import com.example.finalexam.databinding.FragmentGameBinding
 import com.example.finalexam.models.Question
 import com.example.finalexam.services.api.RestClient
+import com.example.finalexam.ui.game_end.GameEndFragmentDirections
 import retrofit2.Call
 import retrofit2.Response
 import java.util.*
@@ -25,6 +26,7 @@ class GameFragment : Fragment(), View.OnClickListener {
     private lateinit var currentView: View
     private lateinit var questions: ArrayList<Question>
     private lateinit var binding: FragmentGameBinding
+    private lateinit var category: String
     private lateinit var btn1: TextView
     private lateinit var btn2: TextView
     private lateinit var btn3: TextView
@@ -37,7 +39,7 @@ class GameFragment : Fragment(), View.OnClickListener {
     private val redColor = Color.parseColor("#d91e1e")
     private val greenColor = Color.parseColor("#4ae54a")
     private val whiteColor = Color.parseColor("#ececec")
-    private val blackColor = Color.parseColor("#000000")
+    private val blackColor = Color.parseColor("#808080")
 
     companion object {
         fun newInstance() = GameFragment()
@@ -67,7 +69,7 @@ class GameFragment : Fragment(), View.OnClickListener {
 
     private fun init() {
         registerBackButtonListener()
-        val category = arguments?.getString("category").toString()
+        category = arguments?.getString("category").toString()
 
         RestClient.quizService.getQuestions(category).enqueue(
             object : retrofit2.Callback<ArrayList<Question>> {
@@ -124,7 +126,10 @@ class GameFragment : Fragment(), View.OnClickListener {
             isWaiting = true
             if (currentQuestionIdx == amountOfQuestions) {
                 val action =
-                    GameFragmentDirections.actionGameFragmentToGameEndFragment(correctAnswerAmount)
+                    GameFragmentDirections.actionGameFragmentToGameEndFragment(
+                        category,
+                        correctAnswerAmount,
+                    )
                 currentView.findNavController().navigate(action)
                 return
             }
@@ -169,7 +174,9 @@ class GameFragment : Fragment(), View.OnClickListener {
     // On back button click navigates to menu
     private fun registerBackButtonListener() {
         binding.btnBack.setOnClickListener {
-            currentView.findNavController().popBackStack()
+            val action =
+                GameFragmentDirections.actionGameFragmentToLevelSelectionFragment()
+            currentView.findNavController().navigate(action)
         }
     }
 
