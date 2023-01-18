@@ -3,7 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/menuFragment">
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.finalexam.ui.splash.SplashFragment"
+        tools:layout="@layout/fragment_splash"
+        android:label="SplashFragment" >
+        <action
+            android:id="@+id/action_splashFragment_to_fragmentLogin"
+            app:destination="@id/fragmentLogin" />
+        <action
+            android:id="@+id/action_splashFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/menuFragment"
@@ -68,6 +81,15 @@
         <action
             android:id="@+id/action_levelSelectionFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentLogin"
+        android:name="com.example.finalexam.ui.login.FragmentLogin"
+        tools:layout="@layout/fragment_login"
+        android:label="FragmentLogin" >
+        <action
+            android:id="@+id/action_fragmentLogin_to_menuFragment"
+            app:destination="@id/menuFragment" />
     </fragment>
 
 </navigation>

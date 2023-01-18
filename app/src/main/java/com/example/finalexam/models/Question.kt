@@ -16,8 +16,4 @@ data class Question(
     val incorrectAnswers: ArrayList<String>,
     @SerializedName("difficulty")
     val difficulty: String,
-) {
-    companion object {
-        val dummyData: ArrayList<Question> = arrayListOf()
-    }
-}
+)

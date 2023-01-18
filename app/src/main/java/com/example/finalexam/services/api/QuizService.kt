@@ -1,5 +1,6 @@
 package com.example.finalexam.services.api
 
+import com.example.finalexam.models.Category
 import com.example.finalexam.models.Question
 import retrofit2.Call
 import retrofit2.http.GET
@@ -10,5 +11,8 @@ interface QuizService {
     fun getQuestions(
         @Query("categories") category: String,
     ): Call<ArrayList<Question>>
+
+    @GET("categories")
+    fun getCategories(): Call<ArrayList<Category>>
 
 }

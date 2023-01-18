@@ -16,7 +16,6 @@ import com.example.finalexam.R
 import com.example.finalexam.databinding.FragmentGameBinding
 import com.example.finalexam.models.Question
 import com.example.finalexam.services.api.RestClient
-import com.example.finalexam.ui.game_end.GameEndFragmentDirections
 import retrofit2.Call
 import retrofit2.Response
 import java.util.*
@@ -122,17 +121,10 @@ class GameFragment : Fragment(), View.OnClickListener {
     private fun onAnswer(view: View) {
         if (isWaiting || !this::questions.isInitialized) return
 
+        Log.d("TAG", "$currentQuestionIdx $amountOfQuestions")
+
         if (view is TextView) {
             isWaiting = true
-            if (currentQuestionIdx == amountOfQuestions) {
-                val action =
-                    GameFragmentDirections.actionGameFragmentToGameEndFragment(
-                        category,
-                        correctAnswerAmount,
-                    )
-                currentView.findNavController().navigate(action)
-                return
-            }
 
             val text = view.text.toString()
             val currentQuestion: Question = questions[currentQuestionIdx]
@@ -152,22 +144,41 @@ class GameFragment : Fragment(), View.OnClickListener {
 
             }
             // Display next question
-            Handler().postDelayed(
-                object : TimerTask() {
-                    override fun run() {
-                        currentQuestionIdx += 1
-                        binding.textLevels.text =
-                            "Question ${currentQuestionIdx + 1}/$amountOfQuestions"
-                        isWaiting = false
-                        view.setBackgroundColor(whiteColor)
-                        view.setTextColor(blackColor)
-                        btnList[correctAnswerBtnIdx].setBackgroundColor(whiteColor)
-                        setupQuestion()
-                    }
-                },
-                1000,
-            )
+            handleDelayedQuestionDisplay(correctAnswerBtnIdx, view)
 
+
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun handleDelayedQuestionDisplay(correctAnswerBtnIdx: Int, view: TextView) {
+        Handler().postDelayed(
+            object : TimerTask() {
+                override fun run() {
+                    currentQuestionIdx += 1
+                    binding.textLevels.text =
+                        "Question ${currentQuestionIdx + 1}/$amountOfQuestions"
+                    isWaiting = false
+                    view.setBackgroundColor(whiteColor)
+                    view.setTextColor(blackColor)
+                    btnList[correctAnswerBtnIdx].setBackgroundColor(whiteColor)
+                    tryEndGame()
+                    setupQuestion()
+                }
+            },
+            1000,
+        )
+    }
+
+    private fun tryEndGame() {
+        if (currentQuestionIdx == amountOfQuestions) {
+            val action =
+                GameFragmentDirections.actionGameFragmentToGameEndFragment(
+                    category,
+                    correctAnswerAmount,
+                )
+            currentView.findNavController().navigate(action)
+            return
         }
     }
 
