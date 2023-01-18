@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.finalexam.R
 import com.example.finalexam.databinding.FragmentGameBinding
 import com.example.finalexam.databinding.FragmentGameEndBinding
+import com.example.finalexam.ui.game.GameFragmentDirections
 
 class GameEndFragment : Fragment() {
     private lateinit var binding: FragmentGameEndBinding
@@ -37,7 +39,21 @@ class GameEndFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val correctAnswerAmount = args.correctAnswerAmount
+        val category = args.category
         binding.correctAnswers.text = correctAnswerAmount.toString()
+
+        binding.menuButton.setOnClickListener {
+            val action =
+                GameEndFragmentDirections.actionGameEndFragmentToMenuFragment2()
+            view.findNavController().navigate(action)
+        }
+
+        binding.restartButton.setOnClickListener {
+            val action =
+                GameEndFragmentDirections.actionGameEndFragmentToGameFragment(category)
+            view.findNavController().navigate(action)
+        }
+
     }
 
 }
