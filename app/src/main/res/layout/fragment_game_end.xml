@@ -19,23 +19,38 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/resultText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="32sp"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:fontFamily="@font/peacesans"
+            android:layout_marginBottom="5dp"
+            android:text="Better luck next time" />
+
+        <TextView
             android:id="@+id/correct_answers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
+            android:textSize="50sp"
             android:layout_gravity="center"
-            android:text="0" />
+            android:textColor="@color/white"
+            android:fontFamily="@font/peacesans"
+            android:text="0/10" />
 
         <TextView
             android:id="@+id/restartButton"
             style="@style/mainButton"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
             android:text="Restart" />
 
         <TextView
             android:id="@+id/menuButton"
             style="@style/mainButton"
             android:layout_marginTop="10dp"
+            android:layout_gravity="center"
             android:text="Back To Menu" />
 
 

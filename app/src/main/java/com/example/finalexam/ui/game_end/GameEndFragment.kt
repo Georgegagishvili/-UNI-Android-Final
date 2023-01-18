@@ -1,5 +1,6 @@
 package com.example.finalexam.ui.game_end
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -36,11 +37,16 @@ class GameEndFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(GameEndViewModel::class.java)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val correctAnswerAmount = args.correctAnswerAmount
         val category = args.category
-        binding.correctAnswers.text = correctAnswerAmount.toString()
+        binding.correctAnswers.text = "$correctAnswerAmount/10"
+
+        if(correctAnswerAmount > 4) {
+            binding.resultText.text = "Good Job"
+        }
 
         binding.menuButton.setOnClickListener {
             val action =
