@@ -39,7 +39,7 @@ class GameFragment : Fragment(), View.OnClickListener {
     private val redColor = Color.parseColor("#d91e1e")
     private val greenColor = Color.parseColor("#4ae54a")
     private val whiteColor = Color.parseColor("#ececec")
-    private val blackColor = Color.parseColor("#000000")
+    private val blackColor = Color.parseColor("#808080")
 
     companion object {
         fun newInstance() = GameFragment()
