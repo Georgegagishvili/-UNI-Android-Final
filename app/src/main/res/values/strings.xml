@@ -3,4 +3,7 @@
     <string name="question">Question</string>
     <string name="sample_question">Which British rock band released the studio album \'Jazz\'?</string>
     <string name="category_selection">Category Selection</string>
+    <string name="notification_channel">default_notification_channel</string>
+
+    <string name="username">userName</string>
 </resources>

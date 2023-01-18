@@ -6,17 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.navigation.findNavController
 import com.example.finalexam.R
 
 class MenuFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = MenuFragment()
-    }
-
     private lateinit var viewModel: MenuViewModel
 
     override fun onCreateView(

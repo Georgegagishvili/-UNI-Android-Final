@@ -1,6 +1,8 @@
 package com.example.finalexam.ui.game_end
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -40,6 +42,12 @@ class GameEndFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val prefs: SharedPreferences? =
+            activity?.getSharedPreferences("User", Context.MODE_PRIVATE)
+        val userName = prefs!!.getString(getString(R.string.username),null).toString()
+        binding.userName.text = "Nice try $userName!"
+
         val correctAnswerAmount = args.correctAnswerAmount
         val category = args.category
         binding.correctAnswers.text = "$correctAnswerAmount/10"
