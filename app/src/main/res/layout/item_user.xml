@@ -6,13 +6,15 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/user"
         android:text="User 1"
         android:fontFamily="@font/baamini"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <TextView
-        android:text="9/10"
+        android:id="@+id/points"
+        android:text="0 Points"
         android:layout_weight="1"
         android:gravity="end"
         android:fontFamily="@font/baamini"

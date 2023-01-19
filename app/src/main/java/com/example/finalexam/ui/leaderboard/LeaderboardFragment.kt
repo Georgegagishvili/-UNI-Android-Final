@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.finalexam.R
 import com.example.finalexam.databinding.FragmentGameBinding
 import com.example.finalexam.databinding.FragmentLeaderboardBinding
@@ -19,6 +21,8 @@ import kotlinx.coroutines.launch
 class LeaderboardFragment : Fragment() {
     private lateinit var binding: FragmentLeaderboardBinding
     private lateinit var appDB: AppDatabase
+    private lateinit var recyclerView: RecyclerView
+
 
     companion object {
         fun newInstance() = LeaderboardFragment()
@@ -42,18 +46,27 @@ class LeaderboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Menu button
         binding.menuButton.setOnClickListener {
             val action = LeaderboardFragmentDirections.actionLeaderboardFragmentToMenuFragment()
             view.findNavController().navigate(action)
         }
 
-        appDB = AppDatabase.getDatabase(requireContext())
+        fillScreenWithResults()
+    }
 
-        // Read results db
-        GlobalScope.launch {
-            val results = appDB.getResultDao().selectAll()
-            Log.d("results", results[0].score.toString())
-        }
+    private fun fillScreenWithResults() {
+        val recyclerView = binding.recyclerView
+        var adapter: LeaderboardRecyclerAdapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
+        // Read results from db
+        appDB = AppDatabase.getDatabase(requireContext())
+        val results = appDB.getResultDao().selectAll()
+
+        adapter = LeaderboardRecyclerAdapter(results)
+        recyclerView.adapter = adapter
     }
 
 }

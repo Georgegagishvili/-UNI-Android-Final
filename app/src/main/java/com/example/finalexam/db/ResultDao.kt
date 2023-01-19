@@ -5,7 +5,7 @@ import androidx.room.*
 @Dao
 interface ResultDao {
     @Query("SELECT * FROM RESULTS")
-    suspend fun selectAll(): List<Result>
+    fun selectAll(): List<Result>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(vararg resultModel: Result)
