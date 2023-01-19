@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_menuFragment_to_levelSelectionFragment"
             app:destination="@id/levelSelectionFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_fragmentLogin"
+            app:destination="@id/fragmentLogin" />
     </fragment>
 
     <fragment

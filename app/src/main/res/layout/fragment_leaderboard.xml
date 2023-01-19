@@ -30,7 +30,7 @@
                 style="@style/mainButton"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="30dp"
-                android:text="Leaderboards"
+                android:text="Leaderboard"
                 android:textSize="22sp" />
 
 
