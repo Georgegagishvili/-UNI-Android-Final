@@ -4,7 +4,7 @@ import androidx.room.*
 
 @Dao
 interface ResultDao {
-    @Query("SELECT * FROM RESULTS")
+    @Query("SELECT * FROM RESULTS ORDER BY SCORE DESC")
     fun selectAll(): List<Result>
 
     @Query("SELECT * From RESULTS WHERE user == (:user)")
