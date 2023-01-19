@@ -35,7 +35,11 @@
         android:id="@+id/leaderboardFragment"
         android:name="com.example.finalexam.ui.leaderboard.LeaderboardFragment"
         android:label="fragment_leaderboard"
-        tools:layout = "@layout/fragment_leaderboard"/>
+        tools:layout = "@layout/fragment_leaderboard">
+        <action
+            android:id="@+id/action_leaderboardFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/gameFragment"
@@ -81,6 +85,9 @@
         <action
             android:id="@+id/action_levelSelectionFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
+        <action
+            android:id="@+id/action_levelSelectionFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentLogin"

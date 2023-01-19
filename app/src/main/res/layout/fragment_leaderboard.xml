@@ -42,7 +42,7 @@
     </ScrollView>
 
     <TextView
-        android:id="@+id/menu_button"
+        android:id="@+id/menuButton"
         style="@style/mainButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
