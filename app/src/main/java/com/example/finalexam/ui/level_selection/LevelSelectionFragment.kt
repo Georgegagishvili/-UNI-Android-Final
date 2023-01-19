@@ -34,7 +34,8 @@ class LevelSelectionFragment : Fragment(), View.OnClickListener {
         currentView = view
 
         binding.menuButton.setOnClickListener {
-            currentView.findNavController().popBackStack()
+            val action = LevelSelectionFragmentDirections.actionLevelSelectionFragmentToMenuFragment()
+            view.findNavController().navigate(action)
         }
     }
 

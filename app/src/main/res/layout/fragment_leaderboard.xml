@@ -30,11 +30,12 @@
                 style="@style/mainButton"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="30dp"
-                android:text="Leaderboards"
+                android:text="Leaderboard"
                 android:textSize="22sp" />
 
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/item_user" />
@@ -42,7 +43,7 @@
     </ScrollView>
 
     <TextView
-        android:id="@+id/menu_button"
+        android:id="@+id/menuButton"
         style="@style/mainButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

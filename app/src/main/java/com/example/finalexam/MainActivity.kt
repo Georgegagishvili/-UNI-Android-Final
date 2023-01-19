@@ -4,11 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.navigation.fragment.NavHostFragment
+import androidx.room.Room
 import com.example.finalexam.databinding.ActivityMainBinding
-import com.example.finalexam.models.Question
+import com.example.finalexam.db.AppDatabase
 import com.example.finalexam.services.api.RestClient
-import retrofit2.Call
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
