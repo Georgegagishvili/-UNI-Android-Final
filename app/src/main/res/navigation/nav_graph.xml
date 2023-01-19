@@ -31,6 +31,8 @@
             app:destination="@id/levelSelectionFragment" />
         <action
             android:id="@+id/action_menuFragment_to_fragmentLogin"
+            app:popUpTo="@id/fragmentLogin"
+            app:popUpToInclusive="true"
             app:destination="@id/fragmentLogin" />
     </fragment>
 

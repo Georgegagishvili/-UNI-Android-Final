@@ -35,16 +35,13 @@ class GameFragment : Fragment(), View.OnClickListener {
     private var correctAnswerAmount = 0
     private var amountOfQuestions = 10
     private var isWaiting = false
-    private val redColor = Color.parseColor("#d91e1e")
-    private val greenColor = Color.parseColor("#4ae54a")
-    private val whiteColor = Color.parseColor("#ececec")
-    private val blackColor = Color.parseColor("#808080")
+    private val whiteColor = Color.parseColor("#FFFFFF")
+    private val blackColor = Color.parseColor("#000000")
+    private val roundedContainerRed = R.drawable.rounded_container_red
+    private val roundedContainerGreen = R.drawable.rounded_container_green
+    private val roundedContainer = R.drawable.rounded_container
 
-    companion object {
-        fun newInstance() = GameFragment()
-    }
 
-    private lateinit var viewModel: GameViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,11 +50,6 @@ class GameFragment : Fragment(), View.OnClickListener {
         binding = FragmentGameBinding.inflate(layoutInflater, container, false)
         setAnswerListeners()
         return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -121,8 +113,6 @@ class GameFragment : Fragment(), View.OnClickListener {
     private fun onAnswer(view: View) {
         if (isWaiting || !this::questions.isInitialized) return
 
-        Log.d("TAG", "$currentQuestionIdx $amountOfQuestions")
-
         if (view is TextView) {
             isWaiting = true
 
@@ -132,12 +122,12 @@ class GameFragment : Fragment(), View.OnClickListener {
             var correctAnswerBtnIdx = 0
             if (text == currentQuestion.correctAnswer) {
                 correctAnswerAmount += 1
-                view.setBackgroundColor(greenColor)
+                view.setBackgroundResource(roundedContainerGreen)
             } else {
-                view.setBackgroundColor(redColor)
+                view.setBackgroundResource(roundedContainerRed)
                 btnList.forEach {
                     if (it.text.toString() == questions[currentQuestionIdx].correctAnswer) {
-                        it.setBackgroundColor(greenColor)
+                        it.setBackgroundResource(roundedContainerGreen)
                         correctAnswerBtnIdx = btnList.indexOf(it)
                     }
                 }
@@ -156,12 +146,14 @@ class GameFragment : Fragment(), View.OnClickListener {
             object : TimerTask() {
                 override fun run() {
                     currentQuestionIdx += 1
-                    binding.textLevels.text =
-                        "Question ${currentQuestionIdx + 1}/$amountOfQuestions"
+                    if (currentQuestionIdx < amountOfQuestions) {
+                        binding.textLevels.text =
+                            "Question ${currentQuestionIdx + 1}/$amountOfQuestions"
+                    }
                     isWaiting = false
-                    view.setBackgroundColor(whiteColor)
+                    view.setBackgroundResource(roundedContainer)
                     view.setTextColor(blackColor)
-                    btnList[correctAnswerBtnIdx].setBackgroundColor(whiteColor)
+                    btnList[correctAnswerBtnIdx].setBackgroundResource(roundedContainer)
                     tryEndGame()
                     setupQuestion()
                 }

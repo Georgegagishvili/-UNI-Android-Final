@@ -10,7 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.finalexam.R
 
 class MenuFragment : Fragment() {
@@ -35,23 +37,25 @@ class MenuFragment : Fragment() {
         val leaderboardButton = view.findViewById<TextView>(R.id.leaderboard_button)
         val logoutButton = view.findViewById<TextView>(R.id.logout_button)
 
-        startButton.setOnClickListener{
-           val action = MenuFragmentDirections.actionMenuFragmentToLevelSelectionFragment()
+        startButton.setOnClickListener {
+            val action = MenuFragmentDirections.actionMenuFragmentToLevelSelectionFragment()
             view.findNavController().navigate(action)
         }
 
-        leaderboardButton.setOnClickListener{
+        leaderboardButton.setOnClickListener {
             val action = MenuFragmentDirections.actionMenuFragmentToLeaderboardFragment()
             view.findNavController().navigate(action)
         }
 
         logoutButton.setOnClickListener {
-            val sharedPreference =  activity?.getSharedPreferences("User", Context.MODE_PRIVATE)
+            val sharedPreference = activity?.getSharedPreferences("User", Context.MODE_PRIVATE)
             val editor = sharedPreference?.edit()
             editor?.clear()
             editor?.apply()
             val action = MenuFragmentDirections.actionMenuFragmentToFragmentLogin()
-            view.findNavController().navigate(action)
+            view.findNavController().navigate(
+                action,
+            )
         }
     }
 }
