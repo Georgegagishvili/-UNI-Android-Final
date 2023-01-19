@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,11 +15,17 @@ import androidx.navigation.fragment.navArgs
 import com.example.finalexam.R
 import com.example.finalexam.databinding.FragmentGameBinding
 import com.example.finalexam.databinding.FragmentGameEndBinding
+import com.example.finalexam.db.AppDatabase
+import com.example.finalexam.db.Result
 import com.example.finalexam.ui.game.GameFragmentDirections
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class GameEndFragment : Fragment() {
     private lateinit var binding: FragmentGameEndBinding
     private val args : GameEndFragmentArgs by navArgs()
+    private lateinit var appDB: AppDatabase
 
     companion object {
         fun newInstance() = GameEndFragment()
@@ -52,10 +59,20 @@ class GameEndFragment : Fragment() {
         val category = args.category
         binding.correctAnswers.text = "$correctAnswerAmount/10"
 
-        if(correctAnswerAmount > 4) {
+        // Add points to the user in db
+        if(correctAnswerAmount > 2) {
             binding.resultText.text = "Good Job"
+            appDB = AppDatabase.getDatabase(requireContext())
+            val result = Result(
+                null, userName, correctAnswerAmount
+            )
+            GlobalScope.launch(Dispatchers.IO) {
+                appDB.getResultDao().insert(result)
+            }
         }
 
+
+        // Buttons
         binding.menuButton.setOnClickListener {
             val action =
                 GameEndFragmentDirections.actionGameEndFragmentToMenuFragment2()

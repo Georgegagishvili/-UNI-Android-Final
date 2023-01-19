@@ -5,14 +5,14 @@ import androidx.room.*
 @Dao
 interface ResultDao {
     @Query("SELECT * FROM RESULTS")
-    fun selectAll(): List<Result>
+    suspend fun selectAll(): List<Result>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(vararg resultModel: Result)
+    suspend fun insert(vararg resultModel: Result)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun update(vararg resultModel: Result)
+    suspend fun update(vararg resultModel: Result)
 
     @Delete
-    fun delete(resultModel: Result)
+    suspend fun delete(resultModel: Result)
 }

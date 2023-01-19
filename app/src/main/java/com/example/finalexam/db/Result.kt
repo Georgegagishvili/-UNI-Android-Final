@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 class Result(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "ID")
-    val id: Long,
+    val id: Long?,
 
     @ColumnInfo(name = "USER")
     val user: String,
