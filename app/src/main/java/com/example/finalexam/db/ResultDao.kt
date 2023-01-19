@@ -7,6 +7,9 @@ interface ResultDao {
     @Query("SELECT * FROM RESULTS")
     fun selectAll(): List<Result>
 
+    @Query("SELECT * From RESULTS WHERE user == (:user)")
+    fun selectByUser(user: String): Result
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(vararg resultModel: Result)
 

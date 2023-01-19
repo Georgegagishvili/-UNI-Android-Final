@@ -63,14 +63,21 @@ class GameEndFragment : Fragment() {
         if(correctAnswerAmount > 2) {
             binding.resultText.text = "Good Job"
             appDB = AppDatabase.getDatabase(requireContext())
-            val result = Result(
+            var newResult = Result(
                 null, userName, correctAnswerAmount
             )
             GlobalScope.launch(Dispatchers.IO) {
-                appDB.getResultDao().insert(result)
+                val result = appDB.getResultDao().selectByUser(userName)
+
+                if (result != null) {
+                    val newScore = result.score + correctAnswerAmount
+                    newResult = Result(result.id, userName, newScore)
+                    appDB.getResultDao().update(newResult)
+                } else {
+                    appDB.getResultDao().insert(newResult)
+                }
             }
         }
-
 
         // Buttons
         binding.menuButton.setOnClickListener {
