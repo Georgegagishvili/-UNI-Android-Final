@@ -24,6 +24,9 @@ class GameEndFragment : Fragment() {
     private lateinit var binding: FragmentGameEndBinding
     private val args: GameEndFragmentArgs by navArgs()
     private lateinit var appDB: AppDatabase
+    private var correctAnswerAmount: Int = 0
+    private var userName = ""
+    private var category = ""
 
 
     override fun onCreateView(
@@ -38,30 +41,28 @@ class GameEndFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val notificationTitle: String?
-        val notificationText: String?
+        init()
+        addButtonListeners()
+        saveData()
+        createCongratulationNotification()
+    }
 
-
+    @SuppressLint("SetTextI18n")
+    private fun init() {
         val prefs: SharedPreferences? =
             activity?.getSharedPreferences("User", Context.MODE_PRIVATE)
-        val userName = prefs!!.getString(getString(R.string.username), null).toString()
         binding.userName.text = "Nice try $userName!"
-
-        val correctAnswerAmount = args.correctAnswerAmount
-        val category = args.category
         binding.correctAnswers.text = "$correctAnswerAmount/10"
+        correctAnswerAmount = args.correctAnswerAmount
+        category = args.category
+        userName = prefs!!.getString(getString(R.string.username), null).toString()
+    }
 
+    @OptIn(DelicateCoroutinesApi::class)
+    @SuppressLint("SetTextI18n")
+    private fun saveData() {
         // Add points to the user in db
         if (correctAnswerAmount > 2) {
-            notificationTitle = "Congratulations"
-            notificationText =
-                "You have scored more than 2 points, you can view your result at leaderboard."
-
-            NotificationHelper(binding.root.context).createNotification(
-                notificationTitle,
-                notificationText
-            )
-
             binding.resultText.text = "Good Job"
             appDB = AppDatabase.getDatabase(requireContext())
             var newResult = Result(
@@ -78,29 +79,42 @@ class GameEndFragment : Fragment() {
                     appDB.getResultDao().insert(newResult)
                 }
             }
-        } else {
-            notificationTitle = "Nice try $userName"
-            notificationText =
-                "If you want your name to be displayed in leaderboards, score more than 2 points!"
-            NotificationHelper(binding.root.context).createNotification(
-                notificationTitle,
-                notificationText
-            )
         }
+    }
 
+    private fun addButtonListeners() {
         // Buttons
         binding.menuButton.setOnClickListener {
             val action =
                 GameEndFragmentDirections.actionGameEndFragmentToMenuFragment2()
-            view.findNavController().navigate(action)
+            binding.root.findNavController().navigate(action)
         }
 
         binding.restartButton.setOnClickListener {
             val action =
                 GameEndFragmentDirections.actionGameEndFragmentToGameFragment(category)
-            view.findNavController().navigate(action)
+            binding.root.findNavController().navigate(action)
         }
-
     }
 
+    private fun createCongratulationNotification() {
+        val notificationTitle: String?
+        val notificationText: String?
+
+        if (correctAnswerAmount > 2) {
+            notificationTitle = "Congratulations"
+            notificationText =
+                "You have scored more than 2 points, you can view your result at leaderboard."
+        } else {
+            notificationTitle = "Nice try $userName"
+            notificationText =
+                "If you want your name to be displayed in leaderboards, score more than 2 points!"
+        }
+
+        NotificationHelper(binding.root.context).createNotification(
+            notificationTitle,
+            notificationText
+        )
+    }
 }
+
