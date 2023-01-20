@@ -58,6 +58,8 @@
             android:defaultValue="None" />
         <action
             android:id="@+id/action_gameFragment_to_gameEndFragment"
+            app:popUpTo="@id/gameFragment"
+            app:popUpToInclusive="true"
             app:destination="@id/gameEndFragment" />
         <action
             android:id="@+id/action_gameFragment_to_levelSelectionFragment"

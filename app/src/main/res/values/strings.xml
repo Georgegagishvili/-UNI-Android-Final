@@ -6,4 +6,6 @@
     <string name="notification_channel">default_notification_channel</string>
 
     <string name="username">userName</string>
+    <string name="reminder_worker">reminder_worker</string>
+    <string name="loading">Loading..</string>
 </resources>

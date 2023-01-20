@@ -12,7 +12,6 @@ class MyBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {
         WorkManager.getInstance().cancelAllWork()
         NotificationManagerCompat.from(context).cancelAll()
-        Log.d("RECEIVED","HELLO WORLD")
         Toast.makeText(context, "Reminder Service Stopped", Toast.LENGTH_SHORT).show()
     }
 }

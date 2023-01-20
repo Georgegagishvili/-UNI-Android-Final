@@ -71,12 +71,13 @@
             android:id="@+id/question_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="5"
             android:layout_gravity="center"
             android:layout_marginHorizontal="10dp"
             android:fontFamily="@font/bebasregular"
             android:gravity="center_vertical"
             android:minHeight="100dp"
-            android:text="@string/sample_question"
+            android:text="@string/loading"
             android:textColor="#FFFFFF"
             android:textSize="30sp" />
 

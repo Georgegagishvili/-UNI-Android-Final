@@ -25,7 +25,7 @@ class ReminderWorker(private val context: Context, private val params: WorkerPar
 
 
         workManager.enqueueUniquePeriodicWork(
-            "REMINDERWORKER",
+            "reminder_worker",
             ExistingPeriodicWorkPolicy.KEEP,
             reminder,
         )
