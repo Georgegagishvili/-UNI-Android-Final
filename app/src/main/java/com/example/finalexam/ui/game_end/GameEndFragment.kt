@@ -51,10 +51,10 @@ class GameEndFragment : Fragment() {
     private fun init() {
         val prefs: SharedPreferences? =
             activity?.getSharedPreferences("User", Context.MODE_PRIVATE)
-        binding.userName.text = "Nice try $userName!"
-        binding.correctAnswers.text = "$correctAnswerAmount/10"
         correctAnswerAmount = args.correctAnswerAmount
         category = args.category
+        binding.userName.text = "Nice try $userName!"
+        binding.correctAnswers.text = "$correctAnswerAmount/10"
         userName = prefs!!.getString(getString(R.string.username), null).toString()
     }
 
